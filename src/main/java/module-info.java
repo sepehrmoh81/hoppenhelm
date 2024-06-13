@@ -6,4 +6,5 @@ module com.smma.hoppenhelm {
                             
     opens com.smma.hoppenhelm to javafx.fxml;
     exports com.smma.hoppenhelm;
+    exports com.smma.hoppenhelm.controller;
 }
