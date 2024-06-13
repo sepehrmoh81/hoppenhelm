@@ -1,49 +1,72 @@
 package com.smma.hoppenhelm.model;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class SpikedGround extends Ground implements Runnable,IDrawable {
-    private final int interval;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class SpikedGround extends Ground implements Runnable, IDrawable {
+    ImageView spikeImageView;
+    private final int intervalMillis;
     private final Thread spikeThread;
     private static final String IMAGE_PATH = "spike.png";
-    public SpikedGround(int interval) {
-        this.interval = interval;
+    private final AtomicBoolean running = new AtomicBoolean(true);
+    private boolean extended = false;
+
+    public SpikedGround(int intervalMillis) {
+        this.intervalMillis = intervalMillis;
         this.spikeThread = new Thread(this);
     }
 
     public void extendSpikes() {
-        // Implement extend spikes logic
+        spikeImageView.setTranslateY(0);
+        extended = true;
     }
 
     public void retractSpikes() {
-        // Implement retract spikes logic
+        spikeImageView.setTranslateY(30);
+        extended = false;
     }
 
     public void showSpikes() {
-        // Implement show spikes logic
+        spikeImageView.setTranslateY(15);
     }
-     @Override
-    public ImageView draw(){
-       ImageView iv = new ImageView(new Image(IMAGE_PATH));
-       iv.setFitWidth(90);
-       iv.setFitHeight(30);
-       return iv;
+
+    public boolean isExtended() {
+        return extended;
     }
+
+    public void start() {
+        spikeThread.start();
+    }
+
+    public void halt(){
+        synchronized(running){
+            running.compareAndSet(true, false);
+        }
+    }
+
+    @Override
+    public ImageView draw() {
+        spikeImageView = new ImageView(new Image(IMAGE_PATH));
+        spikeImageView.setFitWidth(90);
+        spikeImageView.setFitHeight(30);
+        return spikeImageView;
+    }
+
     @Override
     public void run() {
         try {
-            while (true) {
+            while (running.get()) {
+                showSpikes();
+                Thread.sleep(intervalMillis);
                 extendSpikes();
-                Thread.sleep(interval);
+                Thread.sleep(intervalMillis);
                 retractSpikes();
-                Thread.sleep(interval);
+                Thread.sleep(intervalMillis);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public void startSpikes() {
-        spikeThread.start();
     }
 }

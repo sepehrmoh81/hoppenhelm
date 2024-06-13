@@ -1,4 +1,5 @@
 package com.smma.hoppenhelm.model;
+
 public class GameState {
     private static final int[] columns = new int[4];
      /*
@@ -18,11 +19,13 @@ public class GameState {
         columns[1] = columns[2];
         columns[2] = columns[3];
         return columns[0];
-     }
-     public static void addState(int state){
+    }
+
+    public static void addState(int state) {
         columns[3] = state;
-     }
-    public static void modifyState(int state,int position){
+    }
+
+    public static void modifyState(int state, int position) {
         columns[position] = state;
     }
 }

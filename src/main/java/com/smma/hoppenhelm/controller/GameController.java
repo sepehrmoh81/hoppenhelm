@@ -1,14 +1,8 @@
 package com.smma.hoppenhelm.controller;
 import java.util.Random;
 
-import com.smma.hoppenhelm.model.Blank;
-import com.smma.hoppenhelm.model.Coin;
-import com.smma.hoppenhelm.model.Enemy;
-import com.smma.hoppenhelm.model.GameState;
-import com.smma.hoppenhelm.model.Ground;
+import com.smma.hoppenhelm.model.*;
 import com.smma.hoppenhelm.model.HealthPotion;
-import com.smma.hoppenhelm.model.Player;
-import com.smma.hoppenhelm.model.SpikedGround;
 import com.smma.hoppenhelm.model.Torch;
 
 import javafx.animation.TranslateTransition;
@@ -33,6 +27,7 @@ public class GameController {
     private ImageView playerView;
     private boolean isRunning = true;
     private Player player;
+
     public void setPlayer(Player player) {
         this.player = player;
         this.playerName.setText(player.getName());
@@ -41,29 +36,26 @@ public class GameController {
     }
     private void loseGame(){
         isRunning = false;
-        score.setText("!GAME OVER!" + "Score: " + String.valueOf(player.getX()) + " Coins: " + String.valueOf(player.getCoins()));
-
+        score.setText("!GAME OVER!" + "Score: " + player.getX() + " Coins: " + player.getCoins());
     }
+
     @FXML
     private void onMove() {
         if(isRunning){
+        moveButton.setDisable(true); //Disable move button to avoid bugs
+
         player.move();
         updatePlayerInfo();
         animateMove();
-        switch (GameState.moveStates()) {
-               case 1:
-                    player.addCoins(1);
-                    break;
-               case 2:
-                    player.gainHealth(1);
-                    break;   
-               case 3:
-               case 4:
-                   if(!player.loseHealth(1)) loseGame();
-                   break;           
-               default:
-                  break;
-           }
+            switch (GameState.moveStates()) {
+                case 1 -> player.addCoins(1);
+                case 2 -> player.gainHealth(1);
+                case 3, 4 -> {
+                    if (!player.loseHealth(1)) loseGame();
+                }
+                default -> {
+                }
+            }
         }
     }
 
@@ -78,10 +70,10 @@ public class GameController {
     }
 
     private void updatePlayerInfo() {
-        score.setText("Health: " + String.valueOf(player.getHealth()) + "Score: " + String.valueOf(player.getX()) + " Coins: " + String.valueOf(player.getCoins()));
+        score.setText("Health: " + player.getHealth() + "Score: " + player.getX() + " Coins: " + player.getCoins());
     }
 
-   private void renderGame(){
+    private void renderGame(){
         //Init player view
         playerView = player.draw();
         playerView.setTranslateY(60);
@@ -100,32 +92,37 @@ public class GameController {
     private void renderNextTile() {
         Random rand = new Random(System.currentTimeMillis());
         int nextGround = rand.nextInt(7);
+
         ImageView level1Image;
         switch (nextGround) {
-            case 0:
+            case 0 -> {
                 GameState.addState(2);
                 level1Image = new HealthPotion(1).draw();
-                break;
-            case 1:
+            }
+            case 1 -> {
                 GameState.addState(0);
                 level1Image = new Torch().draw();
-                break;
-            case 2:
+            }
+            case 2 -> {
                 GameState.addState(1);
                 level1Image = new Coin(1).draw();
-                break;  
-            case 3:
+            }
+            case 3 -> {
                 GameState.addState(4);
                 level1Image = new Enemy().draw();
-                break;
-            case 4:
+            }
+            case 4 -> {
                 GameState.addState(3);
-                level1Image = new SpikedGround(10).draw();
-                break;
-            default:
+                SpikedGround spikedGround = new SpikedGround(1000);
+                level1Image = spikedGround.draw();
+                spikedGround.start();
+            }
+            default -> {
                 GameState.addState(0);
                 level1Image = new Blank().draw();
+            }
         }
+
         level1.getChildren().add(level1Image);
         level0.getChildren().add(new Ground().draw());
     }

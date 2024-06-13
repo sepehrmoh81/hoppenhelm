@@ -31,7 +31,7 @@ public class HomeController {
             Parent root = loader.load();
 
             GameController gameController = loader.getController();
-            gameController.setPlayer(new Player(playerName, 100, 0));
+            gameController.setPlayer(new Player(playerName, 3, 0));
 
             Stage stage = (Stage) nameTextField.getScene().getWindow();
             stage.setScene(new Scene(root));
