@@ -1,17 +1,20 @@
 package com.smma.hoppenhelm.controller;
-import com.smma.hoppenhelm.model.*;
+import java.util.Random;
+
+import com.smma.hoppenhelm.model.Blank;
+import com.smma.hoppenhelm.model.GameState;
+import com.smma.hoppenhelm.model.Ground;
+import com.smma.hoppenhelm.model.Player;
+import com.smma.hoppenhelm.model.SpikedGround;
 
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
-import java.util.Random;
 
 public class GameController {
     @FXML private Label playerName;
@@ -24,9 +27,11 @@ public class GameController {
     @FXML private Button shieldButton;
     @FXML
     private ImageView playerView;
-
+   
     private Player player;
+    private void loseGame(){
 
+    }
     public void setPlayer(Player player) {
         this.player = player;
         this.playerName.setText(player.getName());
@@ -71,11 +76,10 @@ public class GameController {
         Random rand = new Random(System.currentTimeMillis());
         int nextGround = rand.nextInt(5);
         ImageView level1Image = new Blank().draw();
-
         if (nextGround > 3){
+            GameState.addState(1);
             level1Image = new SpikedGround(10).draw();
         }
-
         level1.getChildren().add(level1Image);
         level0.getChildren().add(new Ground().draw());
     }
@@ -103,6 +107,8 @@ public class GameController {
         level0Transition.setOnFinished(actionEvent -> {
             level0.getChildren().remove(0);
             level0.setTranslateX(0);
+            if(GameState.moveStates() != 0)
+                loseGame();
             renderNextTile();
         });
 
