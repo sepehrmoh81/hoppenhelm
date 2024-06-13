@@ -43,7 +43,7 @@ public class GameController {
     }
     private void loseGame(){
         isRunning = false;
-        score.setText("!GAME OVER!" + "Score: " + player.getX() + " Coins: " + player.getCoins());
+        score.setText("!GAME OVER!" + " Score: " + player.getX() + " Coins: " + player.getCoins());
     }
 
     @FXML
@@ -60,8 +60,7 @@ public class GameController {
                 case states.ENEMY, states.SPIKE -> {
                     if (!player.loseHealth(1)) loseGame();
                 }
-                default -> {
-                }
+                default -> {}
             }
         }
     }
@@ -77,7 +76,7 @@ public class GameController {
     }
 
     private void updatePlayerInfo() {
-        score.setText("Health: " + player.getHealth() + "Score: " + player.getX() + " Coins: " + player.getCoins());
+        score.setText("Health: " + player.getHealth() + " Score: " + player.getX() + " Coins: " + player.getCoins());
     }
 
     private void renderGame(){
