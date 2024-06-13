@@ -1,5 +1,7 @@
 package com.smma.hoppenhelm.model;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 public class Player implements IDrawable {
     private final String name;
     private int x;
@@ -13,8 +15,11 @@ public class Player implements IDrawable {
         this.x = 0;
     }
     @Override
-    public void Draw(Scene scene){
-        
+    public ImageView Draw(){
+       ImageView iv = new ImageView(new Image(imagePath));
+       iv.setFitWidth(90);
+       iv.setFitHeight(90);
+       return iv;
     }
     public String getName() {
         return name;

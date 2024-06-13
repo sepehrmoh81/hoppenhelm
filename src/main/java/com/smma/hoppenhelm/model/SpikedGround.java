@@ -1,5 +1,7 @@
 package com.smma.hoppenhelm.model;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 public class SpikedGround extends Ground implements Runnable,IDrawable {
     private final int interval;
     private final Thread spikeThread;
@@ -20,9 +22,12 @@ public class SpikedGround extends Ground implements Runnable,IDrawable {
     public void showSpikes() {
         // Implement show spikes logic
     }
-    @Override
-    public void Draw(Scene scene){
-        
+     @Override
+    public ImageView Draw(){
+       ImageView iv = new ImageView(new Image(imagePath));
+       iv.setFitWidth(90);
+       iv.setFitHeight(90);
+       return iv;
     }
     @Override
     public void run() {

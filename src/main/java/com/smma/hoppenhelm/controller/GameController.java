@@ -3,6 +3,7 @@ import com.smma.hoppenhelm.model.Player;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class GameController {
@@ -11,7 +12,7 @@ public class GameController {
     @FXML private HBox objectParent;
 
     private Player player;
-
+    private ImageView img;
     public void setPlayer(Player player) {
         this.player = player;
         this.playerName.setText(player.getName());
@@ -21,6 +22,7 @@ public class GameController {
     @FXML
     private void onMove() {
         player.move();
+
         updatePlayerInfo();
     }
 

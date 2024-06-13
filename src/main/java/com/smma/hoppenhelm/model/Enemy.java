@@ -14,8 +14,8 @@ public class Enemy implements IDrawable {
     @Override
     public ImageView Draw(){
        ImageView iv = new ImageView(new Image(imagePath));
-       iv.setFitWidth(100);
-       iv.setFitHeight(100);
+       iv.setFitWidth(90);
+       iv.setFitHeight(90);
        return iv;
     }
 }
