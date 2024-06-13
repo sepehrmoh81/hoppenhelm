@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 public class BrokenGround extends Ground implements Runnable,IDrawable {
     private final int breakTime;
     private final Thread groundBreakThread;
-    private final String imagePath = "visuals/ground.png";
+    private static final String IMAGE_PATH = "ground.png";
 
     public BrokenGround(int breakTime) {
         this.breakTime = breakTime;
@@ -17,8 +17,8 @@ public class BrokenGround extends Ground implements Runnable,IDrawable {
         // Implement ground breaking logic
     }
     @Override
-    public ImageView Draw(){
-       ImageView iv = new ImageView(new Image(imagePath));
+    public ImageView draw(){
+       ImageView iv = new ImageView(new Image(IMAGE_PATH));
        iv.setFitWidth(90);
        iv.setFitHeight(90);
        return iv;

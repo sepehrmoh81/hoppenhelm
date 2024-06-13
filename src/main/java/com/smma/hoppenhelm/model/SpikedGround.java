@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 public class SpikedGround extends Ground implements Runnable,IDrawable {
     private final int interval;
     private final Thread spikeThread;
-    private final String imagePath = "visuals/spike.gif";
+    private static final String IMAGE_PATH = "spike.png";
     public SpikedGround(int interval) {
         this.interval = interval;
         this.spikeThread = new Thread(this);
@@ -23,10 +23,10 @@ public class SpikedGround extends Ground implements Runnable,IDrawable {
         // Implement show spikes logic
     }
      @Override
-    public ImageView Draw(){
-       ImageView iv = new ImageView(new Image(imagePath));
+    public ImageView draw(){
+       ImageView iv = new ImageView(new Image(IMAGE_PATH));
        iv.setFitWidth(90);
-       iv.setFitHeight(90);
+       iv.setFitHeight(30);
        return iv;
     }
     @Override

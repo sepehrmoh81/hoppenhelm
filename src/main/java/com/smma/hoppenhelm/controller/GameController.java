@@ -1,8 +1,9 @@
 package com.smma.hoppenhelm.controller;
-import com.smma.hoppenhelm.model.Player;
+import com.smma.hoppenhelm.model.*;
 
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -10,12 +11,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.util.Random;
+
 public class GameController {
     @FXML private Label playerName;
     @FXML private Label score;
     @FXML private VBox objectParent;
     @FXML private HBox level0;
     @FXML private HBox level1;
+    @FXML private Button attackButton;
+    @FXML private Button moveButton;
+    @FXML private Button shieldButton;
+    @FXML
+    private ImageView playerView;
 
     private Player player;
 
@@ -23,10 +31,6 @@ public class GameController {
         this.player = player;
         this.playerName.setText(player.getName());
         updatePlayerInfo();
-    }
-
-    @FXML
-    public void initialize() {
         renderGame();
     }
 
@@ -52,44 +56,64 @@ public class GameController {
     }
 
     private void renderGame(){
+        playerView = player.draw();
+        playerView.setTranslateY(60);
+        objectParent.getChildren().addFirst(playerView);
+
+        level1.setTranslateY(20);
         for(int i = 0 ; i < 4; i++){
-            Button button = new Button();
-            button.setPrefWidth(90);
-            button.setText("Button " + i);
-            level0.getChildren().add(button);
-        }
-        for(int i = 0 ; i < 4; i++){
-            Button button = new Button();
-            button.setPrefWidth(90);
-            button.setText("Button " + i);
-            level1.getChildren().add(button);
+            level1.getChildren().add(new Blank().draw());
+            level0.getChildren().add(new Ground().draw());
         }
     }
 
-    private void renderNextTile(){
-        Button button0 = new Button();
-        button0.setPrefWidth(90);
-        button0.setText("Button " + (player.getX() + 3));
-        level0.getChildren().add(button0);
+    private void renderNextTile() {
+        Random rand = new Random(System.currentTimeMillis());
+        int nextGround = rand.nextInt(5);
+        ImageView level1Image = new Blank().draw();
 
-        Button button1 = new Button();
-        button1.setPrefWidth(90);
-        button1.setText("Button " + (player.getX() + 3));
-        level1.getChildren().add(button1);
+        if (nextGround > 3){
+            level1Image = new SpikedGround(10).draw();
+        }
+
+        level1.getChildren().add(level1Image);
+        level0.getChildren().add(new Ground().draw());
     }
 
     private void animateMove(){
-        TranslateTransition transition = new TranslateTransition(Duration.millis(500));
-        transition.setByX(-90);
-        transition.setCycleCount(1);
-        transition.setAutoReverse(false);
-        transition.setNode(objectParent);
-        transition.play();
-        transition.setOnFinished(actionEvent -> {
+        moveButton.setDisable(true);
+        TranslateTransition level0Transition = new TranslateTransition(Duration.millis(500));
+        level0Transition.setByX(-90);
+        level0Transition.setCycleCount(1);
+        level0Transition.setAutoReverse(false);
+        level0Transition.setNode(level0);
+
+        TranslateTransition level1Transition = new TranslateTransition(Duration.millis(500));
+        level1Transition.setByX(-90);
+        level1Transition.setCycleCount(1);
+        level1Transition.setAutoReverse(false);
+        level1Transition.setNode(level1);
+
+        TranslateTransition playerTransition = new TranslateTransition(Duration.millis(250));
+        playerTransition.setByY(-100);
+        playerTransition.setCycleCount(2);
+        playerTransition.setAutoReverse(true);
+        playerTransition.setNode(playerView);
+
+        level0Transition.setOnFinished(actionEvent -> {
             level0.getChildren().remove(0);
-            level1.getChildren().remove(0);
-            objectParent.setTranslateX(0);
+            level0.setTranslateX(0);
             renderNextTile();
         });
+
+        level1Transition.setOnFinished(actionEvent -> {
+            level1.getChildren().remove(0);
+            level1.setTranslateX(0);
+            moveButton.setDisable(false);
+        });
+
+        playerTransition.play();
+        level0Transition.play();
+        level1Transition.play();
     }
 }

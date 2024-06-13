@@ -4,7 +4,7 @@ import javafx.scene.image.ImageView;
 
 public class HealthPotion implements Consumable,IDrawable {
     private final int healthGainAmount;
-    private final String imagePath = "visuals/Potion_of_Healing.webp";
+    private static final String IMAGE_PATH = "Potion_of_Healing.webp";
     public HealthPotion(int healthGainAmount) {
         this.healthGainAmount = healthGainAmount;
     }
@@ -13,8 +13,8 @@ public class HealthPotion implements Consumable,IDrawable {
         return healthGainAmount;
     }
      @Override
-    public ImageView Draw(){
-       ImageView iv = new ImageView(new Image(imagePath));
+    public ImageView draw(){
+       ImageView iv = new ImageView(new Image(IMAGE_PATH));
        iv.setFitWidth(90);
        iv.setFitHeight(90);
        return iv;

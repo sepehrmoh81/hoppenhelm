@@ -8,13 +8,13 @@ import javafx.scene.image.ImageView;
 public class Torch implements IDrawable {
     private int x;
     private List<Consumable> contents;
-    private final String imagePath = "visuals/torch.gif";
+    private static final String IMAGE_PATH = "torch.gif";
     public List<Consumable> getContents() {
         return contents;
     }
     @Override
-    public ImageView Draw(){
-       ImageView iv = new ImageView(new Image(imagePath));
+    public ImageView draw(){
+       ImageView iv = new ImageView(new Image(IMAGE_PATH));
        iv.setFitWidth(90);
        iv.setFitHeight(90);
        return iv;

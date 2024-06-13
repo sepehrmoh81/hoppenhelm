@@ -7,7 +7,8 @@ public class Player implements IDrawable {
     private int x;
     private int health;
     private int coins;
-    private final String imagePath = "visuals/amogus.png";
+    private final String imagePath = "amogus.png";
+
     public Player(String name, int health, int coins) {
         this.name = name;
         this.health = health;
@@ -15,7 +16,7 @@ public class Player implements IDrawable {
         this.x = 0;
     }
     @Override
-    public ImageView Draw(){
+    public ImageView draw(){
        ImageView iv = new ImageView(new Image(imagePath));
        iv.setFitWidth(90);
        iv.setFitHeight(90);

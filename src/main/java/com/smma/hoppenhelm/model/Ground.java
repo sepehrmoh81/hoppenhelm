@@ -3,17 +3,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Ground implements IDrawable {
-    protected int x;
-    private final String imagePath = "visuals/gound.png";
-    public int getX() {
-        return x;
-    }
 
-    public void setX(int x) {
-        this.x = x;
-    }
+    private final ClassLoader classLoader = getClass().getClassLoader();
+    private final String imagePath = "ground.png";
+
     @Override
-    public ImageView Draw(){
+    public ImageView draw(){
        ImageView iv = new ImageView(new Image(imagePath));
        iv.setFitWidth(90);
        iv.setFitHeight(90);
