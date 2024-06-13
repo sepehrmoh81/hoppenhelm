@@ -1,18 +1,21 @@
 package com.smma.hoppenhelm.model;
-
-public class Player {
+import javafx.scene.image.ImageView;
+public class Player implements IDrawable {
     private final String name;
     private int x;
     private int health;
     private int coins;
-
+    private final String imagePath = "visuals/amogus.png";
     public Player(String name, int health, int coins) {
         this.name = name;
         this.health = health;
         this.coins = coins;
         this.x = 0;
     }
-
+    @Override
+    public void Draw(Scene scene){
+        
+    }
     public String getName() {
         return name;
     }

@@ -1,15 +1,16 @@
 package com.smma.hoppenhelm.model;
+
+import java.util.List;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Enemy implements IDrawable {
+public class Torch implements IDrawable {
     private int x;
-    private int range;
-    private int health;
-    private int damage;
-    private final String imagePath = "visuals/goomba.png";
-    public void attack() {
-        // Implement attack logic
+    private List<Consumable> contents;
+    private final String imagePath = "visuals/torch.gif";
+    public List<Consumable> getContents() {
+        return contents;
     }
     @Override
     public ImageView Draw(){
