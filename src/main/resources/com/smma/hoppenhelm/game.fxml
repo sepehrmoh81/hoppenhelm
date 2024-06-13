@@ -9,13 +9,24 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.smma.hoppenhelm.controller.GameController"
-            prefHeight="1280.0" prefWidth="720.0">
+            prefHeight="640.0" prefWidth="360.0">
+
+    <top>
+        <HBox spacing="20" alignment="TOP_CENTER">
+            <Label fx:id="playerName"/>
+            <Label fx:id="score"/>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox alignment="CENTER_LEFT" spacing="5" fx:id="objectParent"/>
+    </center>
 
     <bottom>
-        <HBox alignment="BOTTOM_CENTER">
-            <Button text="Attack"/>
-            <Button text="Move"/>
-            <Button text="Shield"/>
+        <HBox alignment="BOTTOM_CENTER" spacing="20">
+            <Button text="Attack" onAction="#onAttack"/>
+            <Button text="Move"  onAction="#onMove"/>
+            <Button text="Shield"  onAction="#onShield"/>
         </HBox>
     </bottom>
 

@@ -1,7 +1,9 @@
+package com.smma.hoppenhelm.controller;
+
 import java.io.IOException;
 
-import com.smma.hoppenhelm.controller.GameController;
-
+import com.smma.hoppenhelm.App;
+import com.smma.hoppenhelm.model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,10 +13,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class HelloController {
+public class HomeController {
 
-    @FXML
-    private TextField nameTextField;
+    @FXML private TextField nameTextField;
 
     @FXML
     private void handleStartGame() {
@@ -26,11 +27,11 @@ public class HelloController {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("game.fxml"));
             Parent root = loader.load();
 
             GameController gameController = loader.getController();
-            gameController.setPlayerName(playerName);
+            gameController.setPlayer(new Player(playerName, 100, 0));
 
             Stage stage = (Stage) nameTextField.getScene().getWindow();
             stage.setScene(new Scene(root));
