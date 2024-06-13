@@ -2,7 +2,7 @@ package com.smma.hoppenhelm.model;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-public class Coin implements Consumable,IDrawable {
+public class Coin extends GameObject implements Consumable,IDrawable {
     private final int value;
     private static final String IMAGE_PATH = "coin.gif";
     public Coin(int value) {

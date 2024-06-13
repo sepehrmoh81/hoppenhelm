@@ -5,7 +5,7 @@ import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Torch implements IDrawable {
+public class Torch extends GameObject implements IDrawable {
     private int x;
     private List<Consumable> contents;
     private static final String IMAGE_PATH = "torch.gif";

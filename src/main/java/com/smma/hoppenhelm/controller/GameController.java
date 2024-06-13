@@ -1,8 +1,15 @@
 package com.smma.hoppenhelm.controller;
 import java.util.Random;
 
-import com.smma.hoppenhelm.model.*;
+import com.smma.hoppenhelm.model.Blank;
+import com.smma.hoppenhelm.model.Coin;
+import com.smma.hoppenhelm.model.Enemy;
+import com.smma.hoppenhelm.model.GameState;
+import com.smma.hoppenhelm.model.GameState.states;
+import com.smma.hoppenhelm.model.Ground;
 import com.smma.hoppenhelm.model.HealthPotion;
+import com.smma.hoppenhelm.model.Player;
+import com.smma.hoppenhelm.model.SpikedGround;
 import com.smma.hoppenhelm.model.Torch;
 
 import javafx.animation.TranslateTransition;
@@ -48,9 +55,9 @@ public class GameController {
         updatePlayerInfo();
         animateMove();
             switch (GameState.moveStates()) {
-                case 1 -> player.addCoins(1);
-                case 2 -> player.gainHealth(1);
-                case 3, 4 -> {
+                case states.COIN -> player.addCoins(1);
+                case states.POTION -> player.gainHealth(1);
+                case states.ENEMY, states.SPIKE -> {
                     if (!player.loseHealth(1)) loseGame();
                 }
                 default -> {
@@ -77,7 +84,7 @@ public class GameController {
         //Init player view
         playerView = player.draw();
         playerView.setTranslateY(60);
-
+        GameState.initStates();
         //Init level 1 view
         level1.setTranslateY(20);
 
@@ -96,30 +103,35 @@ public class GameController {
         ImageView level1Image;
         switch (nextGround) {
             case 0 -> {
-                GameState.addState(2);
-                level1Image = new HealthPotion(1).draw();
+                HealthPotion hp = new HealthPotion(1);
+                GameState.addState(states.POTION,hp);
+                level1Image = hp.draw();
             }
             case 1 -> {
-                GameState.addState(0);
-                level1Image = new Torch().draw();
+                Torch t = new Torch();
+                GameState.addState(states.BLANK,t);
+                level1Image = t.draw();
             }
             case 2 -> {
-                GameState.addState(1);
-                level1Image = new Coin(1).draw();
+                Coin c = new Coin(1);
+                GameState.addState(states.COIN,c);
+                level1Image = c.draw();
             }
             case 3 -> {
-                GameState.addState(4);
-                level1Image = new Enemy().draw();
+                Enemy e = new Enemy();
+                GameState.addState(states.ENEMY,e);
+                level1Image = e.draw();
             }
             case 4 -> {
-                GameState.addState(3);
-                SpikedGround spikedGround = new SpikedGround(1000);
-                level1Image = spikedGround.draw();
-                spikedGround.start();
+                SpikedGround sp = new SpikedGround(1000);
+                GameState.addState(states.SPIKE,sp);
+                level1Image = sp.draw();
+                sp.start();
             }
             default -> {
-                GameState.addState(0);
-                level1Image = new Blank().draw();
+                Blank b = new Blank();
+                GameState.addState(states.BLANK,b);
+                level1Image = b.draw();
             }
         }
 

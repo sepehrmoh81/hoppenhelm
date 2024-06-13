@@ -3,7 +3,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-public class BrokenGround extends Ground implements Runnable,IDrawable {
+public class BrokenGround extends GameObject implements Runnable,IDrawable {
     private final int breakTime;
     private final Thread groundBreakThread;
     private static final String IMAGE_PATH = "ground.png";

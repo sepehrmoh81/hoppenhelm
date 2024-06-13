@@ -2,7 +2,7 @@ package com.smma.hoppenhelm.model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class HealthPotion implements Consumable,IDrawable {
+public class HealthPotion extends GameObject implements Consumable,IDrawable {
     private final int healthGainAmount;
     private static final String IMAGE_PATH = "Potion_of_Healing.webp";
     public HealthPotion(int healthGainAmount) {

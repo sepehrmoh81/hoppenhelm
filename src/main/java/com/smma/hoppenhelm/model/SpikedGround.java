@@ -1,11 +1,13 @@
 package com.smma.hoppenhelm.model;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import com.smma.hoppenhelm.model.GameState.states;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-public class SpikedGround extends Ground implements Runnable, IDrawable {
+public class SpikedGround extends GameObject implements Runnable, IDrawable {
     ImageView spikeImageView;
     private final int intervalMillis;
     private final Thread spikeThread;
@@ -21,11 +23,13 @@ public class SpikedGround extends Ground implements Runnable, IDrawable {
     public void extendSpikes() {
         spikeImageView.setTranslateY(0);
         extended = true;
+        GameState.modifyState(states.SPIKE, position);
     }
 
     public void retractSpikes() {
         spikeImageView.setTranslateY(30);
         extended = false;
+        GameState.modifyState(states.BLANK, position);
     }
 
     public void showSpikes() {

@@ -2,7 +2,7 @@ package com.smma.hoppenhelm.model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Enemy implements IDrawable {
+public class Enemy extends GameObject implements IDrawable {
     private int x;
     private int range;
     private int health;

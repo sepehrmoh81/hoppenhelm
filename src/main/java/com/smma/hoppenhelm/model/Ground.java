@@ -2,7 +2,7 @@ package com.smma.hoppenhelm.model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Ground implements IDrawable {
+public class Ground extends GameObject implements IDrawable {
 
     private final ClassLoader classLoader = getClass().getClassLoader();
     private final String imagePath = "ground.png";
