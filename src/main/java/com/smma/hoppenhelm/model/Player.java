@@ -66,7 +66,8 @@ public class Player implements IDrawable {
         health += value;
     }
 
-    public void loseHealth(int value) {
+    public boolean loseHealth(int value) {
         health -= value;
+        return health > 0;
     }
 }
