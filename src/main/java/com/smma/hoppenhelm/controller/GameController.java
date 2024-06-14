@@ -38,12 +38,11 @@ public class GameController {
     @FXML
     private Button moveButton;
     @FXML
-    private Button shieldButton;
-    @FXML
     private ImageView playerView;
     private boolean isRunning = true;
     private Player player;
     private boolean shouldConsume = false;
+
 
     public void setPlayer(Player player) {
         this.player = player;
@@ -59,26 +58,23 @@ public class GameController {
     @FXML
     private void onMove() {
         if (isRunning) {
+            attackButton.setDisable(true); //Disable attack button to avoid bugs
             moveButton.setDisable(true); //Disable move button to avoid bugs
 
             player.move();
             switch (GameState.moveStates()) {
                 case COIN -> {
-                    System.out.println("Coin");
                     player.addCoins(1);
                     shouldConsume = true;
                 }
                 case POTION -> {
-                    System.out.println("Potion");
                     player.gainHealth(1);
                     shouldConsume = true;
                 }
                 case ENEMY -> {
-                    System.out.println("Enemy");
                     if (!player.loseHealth(1)) loseGame();
                 }
                 case SPIKE -> {
-                    System.out.println("Spike");
                     SpikedGround sg = (SpikedGround) GameState.getObjects()[0];
                     if(sg.isExtended()) {
                         if (!player.loseHealth(1)) loseGame();
@@ -94,19 +90,18 @@ public class GameController {
 
     @FXML
     private void onAttack() {
-        player.attack();
-        if(GameState.getPlayerFront() == State.ENEMY)
-        {
-            GameState.modifyState(State.BLANK, 1);
-            level1.getChildren().remove(1);
-            level1.getChildren().add(1, new Blank().draw());
-        }
-        
-    }
+        attackButton.setDisable(true); //Disable attack button to avoid bugs
+        moveButton.setDisable(true); //Disable move button to avoid bugs
 
-    @FXML
-    private void onShield() {
-        player.shield();
+        player.attack(() -> {
+            if(GameState.getPlayerFront() == State.ENEMY) {
+                GameState.modifyState(State.BLANK, 1);
+                level1.getChildren().remove(1);
+                level1.getChildren().add(1, new Blank().draw());
+            }
+            attackButton.setDisable(false);
+            moveButton.setDisable(false);
+        });
     }
 
     private void updatePlayerInfo() {
@@ -139,7 +134,7 @@ public class GameController {
         ImageView level1Image;
         switch (nextGround) {
             case 0 -> {
-                HealthPotion hp = new HealthPotion(1);
+                HealthPotion hp = new HealthPotion();
                 GameState.addState(State.POTION, hp);
                 level1Image = hp.draw();
             }
@@ -149,7 +144,7 @@ public class GameController {
                 level1Image = t.draw();
             }
             case 2 -> {
-                Coin c = new Coin(1);
+                Coin c = new Coin();
                 GameState.addState(State.COIN, c);
                 level1Image = c.draw();
             }
@@ -206,6 +201,7 @@ public class GameController {
             if(shouldConsume) consume();
             shouldConsume = false;
             moveButton.setDisable(false);
+            attackButton.setDisable(false);
         });
 
         playerTransition.play();

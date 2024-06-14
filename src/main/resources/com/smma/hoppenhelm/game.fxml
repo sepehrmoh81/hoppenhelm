@@ -26,7 +26,6 @@
         <HBox alignment="BOTTOM_CENTER" spacing="20">
             <Button text="Attack" onAction="#onAttack" fx:id="attackButton"/>
             <Button text="Move"  onAction="#onMove" fx:id="moveButton"/>
-            <Button text="Shield"  onAction="#onShield" fx:id="shieldButton"/>
         </HBox>
     </bottom>
 
