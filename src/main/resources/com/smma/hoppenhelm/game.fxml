@@ -3,30 +3,36 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.smma.hoppenhelm.controller.GameController"
-            prefHeight="640.0" prefWidth="360.0">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.smma.hoppenhelm.controller.GameController">
+    <ImageView fitWidth="360" fitHeight="640">
+        <Image url="@../../../background.jpg"/>
+    </ImageView>
+    <BorderPane prefHeight="640.0" prefWidth="360.0">
 
-    <top>
-        <HBox spacing="20" alignment="TOP_CENTER">
-            <Label fx:id="playerName"/>
-            <Label fx:id="score"/>
-        </HBox>
-    </top>
+        <top>
+            <HBox spacing="20" alignment="TOP_CENTER">
+                <Label fx:id="playerName"/>
+                <Label fx:id="score"/>
+            </HBox>
+        </top>
 
-    <center>
-        <VBox spacing="2" fx:id="objectParent" alignment="CENTER_LEFT">
-            <HBox alignment="CENTER_LEFT" spacing="5" fx:id="level1"/>
-            <HBox alignment="CENTER_LEFT" spacing="5" fx:id="level0"/>
-        </VBox>
-    </center>
+        <center>
+            <VBox spacing="2" fx:id="objectParent" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" fx:id="level1"/>
+                <HBox alignment="CENTER_LEFT" fx:id="level0"/>
+            </VBox>
+        </center>
 
-    <bottom>
-        <HBox alignment="BOTTOM_CENTER" spacing="20">
-            <Button text="Attack" onAction="#onAttack" fx:id="attackButton"/>
-            <Button text="Move"  onAction="#onMove" fx:id="moveButton"/>
-        </HBox>
-    </bottom>
+        <bottom>
+            <HBox alignment="BOTTOM_CENTER" spacing="20">
+                <Button text="Attack" onAction="#onAttack" fx:id="attackButton"/>
+                <Button text="Move"  onAction="#onMove" fx:id="moveButton"/>
+            </HBox>
+        </bottom>
 
-</BorderPane>
+    </BorderPane>
+</StackPane>

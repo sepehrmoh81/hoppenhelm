@@ -5,9 +5,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.smma.hoppenhelm.controller.HomeController">
+    <ImageView fitWidth="180" preserveRatio="true">
+        <Image url="@../../../amogus_sword.png"/>
+    </ImageView>
     <Label text="Enter your name:"/>
-    <TextField fx:id="nameTextField"/>
+    <TextField fx:id="nameTextField" maxWidth="240"/>
     <Button text="Start Game" onAction="#handleStartGame"/>
 </VBox>

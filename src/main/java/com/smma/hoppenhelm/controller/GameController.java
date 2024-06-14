@@ -75,9 +75,10 @@ public class GameController {
                     if (!player.loseHealth(1)) loseGame();
                 }
                 case SPIKE -> {
-                    SpikedGround sg = (SpikedGround) GameState.getObjects()[0];
-                    if(sg.isExtended()) {
-                        if (!player.loseHealth(1)) loseGame();
+                    if(GameState.getObjects()[0] instanceof SpikedGround sg) {
+                        if (sg.isExtended()) {
+                            if (!player.loseHealth(1)) loseGame();
+                        }
                     }
                 }
                 default -> {
@@ -114,7 +115,7 @@ public class GameController {
     private void renderGame() {
         //Init player view
         playerView = player.draw();
-        playerView.setTranslateY(60);
+        playerView.setTranslateY(65);
         GameState.initStates();
         //Init level 1 view
         level1.setTranslateY(20);
