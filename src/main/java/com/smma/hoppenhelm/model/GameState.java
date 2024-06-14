@@ -16,7 +16,9 @@ public class GameState {
     public static GameObject[] getObjects() {
         return objects;
     }
-
+    public static State getPlayerFront(){
+        return columns[1];
+    }
     public static void initStates() {
         for (int i = 0; i < 4; i++) {
             columns[i] = State.BLANK;
@@ -26,8 +28,8 @@ public class GameState {
 
     public static State moveStates() {
         for (int i = 0; i < 3; i++) {
-            if(i == 0 && objects[i] instanceof SpikedGround){
-                ((SpikedGround) objects[i]).halt();
+            if(i == 0 && objects[0] instanceof SpikedGround){
+                ((SpikedGround) objects[0]).halt();
                 System.out.println("Halted Spike");
             }
 

@@ -95,6 +95,13 @@ public class GameController {
     @FXML
     private void onAttack() {
         player.attack();
+        if(GameState.getPlayerFront() == State.ENEMY)
+        {
+            GameState.modifyState(State.BLANK, 1);
+            level1.getChildren().remove(1);
+            level1.getChildren().add(1, new Blank().draw());
+        }
+        
     }
 
     @FXML
