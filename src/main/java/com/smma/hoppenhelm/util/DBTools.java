@@ -1,4 +1,6 @@
-package com.smma.hoppenhelm;
+package com.smma.hoppenhelm.util;
+
+import com.smma.hoppenhelm.model.PlayerScore;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBTools {
     private Connection connection;
@@ -24,8 +28,8 @@ public class DBTools {
     // Method to create the scores table if it does not exist
     private void createTableIfNotExists() {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS scores ("
-                                + "name TEXT PRIMARY KEY, "
-                                + "score INTEGER NOT NULL)";
+                + "name TEXT PRIMARY KEY, "
+                + "score INTEGER NOT NULL)";
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(createTableSQL);
         } catch (SQLException e) {
@@ -34,16 +38,34 @@ public class DBTools {
     }
 
     // Method to get all player names and their high scores
-    public ResultSet getAllScores() {
+    public List<PlayerScore> getAllScores() {
+        List<PlayerScore> scores = new ArrayList<>();
+
         String selectAllSQL = "SELECT name, score FROM scores ORDER BY score";
         try {
             Statement stmt = connection.createStatement();
-            return stmt.executeQuery(selectAllSQL);
+            ResultSet set = stmt.executeQuery(selectAllSQL);
+            scores.add(new PlayerScore(set.getString(1), set.getInt(2)));
+            while (set.next()) {
+                String name = set.getString(1);
+                int score = set.getInt(2);
+                scores.stream()
+                        .filter(playerScore -> playerScore.getName().equals(name))
+                        .findFirst().ifPresentOrElse(
+                                playerScore -> {
+                                    playerScore.setScore(Math.max(playerScore.getScore(), score));
+                                },
+                                () -> {
+                                    scores.add(new PlayerScore(name, score));
+                                });
+            }
+            return scores.subList(0, Math.min(scores.size(), 10));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
+
 
     // Method to create or update a player's score
     public void createOrUpdateScore(String name, int score) {

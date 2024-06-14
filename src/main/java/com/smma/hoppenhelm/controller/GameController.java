@@ -2,7 +2,7 @@ package com.smma.hoppenhelm.controller;
 
 import java.util.Random;
 
-import com.smma.hoppenhelm.DBTools;
+import com.smma.hoppenhelm.util.DBTools;
 import com.smma.hoppenhelm.model.GameState;
 import com.smma.hoppenhelm.model.GameState.State;
 import com.smma.hoppenhelm.model.drawable.Blank;

@@ -11,4 +11,6 @@ module com.smma.hoppenhelm {
     exports com.smma.hoppenhelm.model;
     exports com.smma.hoppenhelm.model.drawable;
     opens com.smma.hoppenhelm.model.drawable to javafx.fxml;
+    exports com.smma.hoppenhelm.util;
+    opens com.smma.hoppenhelm.util to javafx.fxml;
 }

@@ -7,6 +7,9 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.smma.hoppenhelm.controller.HomeController">
     <ImageView fitWidth="180" preserveRatio="true">
@@ -15,4 +18,10 @@
     <Label text="Enter your name:"/>
     <TextField fx:id="nameTextField" maxWidth="240"/>
     <Button text="Start Game" onAction="#handleStartGame"/>
+    <Label text="High Scores">
+        <padding>
+            <Insets top="40"/>
+        </padding>
+    </Label>
+    <TableView fx:id="table"/>
 </VBox>
