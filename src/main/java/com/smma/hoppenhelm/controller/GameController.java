@@ -42,6 +42,7 @@ public class GameController {
     private boolean isRunning = true;
     private Player player;
     private boolean shouldConsume = false;
+    private int previousRenderedTile = 0;
 
 
     public void setPlayer(Player player) {
@@ -75,6 +76,7 @@ public class GameController {
                     if (!player.loseHealth(1)) loseGame();
                 }
                 case SPIKE -> {
+                    System.out.println("SPIKE DETECTED!");
                     if(GameState.getObjects()[0] instanceof SpikedGround sg) {
                         if (sg.isExtended()) {
                             if (!player.loseHealth(1)) loseGame();
@@ -133,39 +135,47 @@ public class GameController {
         int nextGround = rand.nextInt(7);
 
         ImageView level1Image;
-        switch (nextGround) {
-            case 0 -> {
-                HealthPotion hp = new HealthPotion();
-                GameState.addState(State.POTION, hp);
-                level1Image = hp.draw();
+        if(previousRenderedTile != 4) {
+            switch (nextGround) {
+                case 0 -> {
+                    HealthPotion hp = new HealthPotion();
+                    GameState.addState(State.POTION, hp);
+                    level1Image = hp.draw();
+                }
+                case 1 -> {
+                    Torch t = new Torch();
+                    GameState.addState(State.BLANK, t);
+                    level1Image = t.draw();
+                }
+                case 2 -> {
+                    Coin c = new Coin();
+                    GameState.addState(State.COIN, c);
+                    level1Image = c.draw();
+                }
+                case 3 -> {
+                    Enemy e = new Enemy();
+                    GameState.addState(State.ENEMY, e);
+                    level1Image = e.draw();
+                }
+                case 4 -> {
+                    SpikedGround sp = new SpikedGround(1000);
+                    GameState.addState(State.SPIKE, sp);
+                    level1Image = sp.draw();
+                    sp.start();
+                }
+                default -> {
+                    Blank b = new Blank();
+                    GameState.addState(State.BLANK, b);
+                    level1Image = b.draw();
+                }
             }
-            case 1 -> {
-                Torch t = new Torch();
-                GameState.addState(State.BLANK, t);
-                level1Image = t.draw();
-            }
-            case 2 -> {
-                Coin c = new Coin();
-                GameState.addState(State.COIN, c);
-                level1Image = c.draw();
-            }
-            case 3 -> {
-                Enemy e = new Enemy();
-                GameState.addState(State.ENEMY, e);
-                level1Image = e.draw();
-            }
-            case 4 -> {
-                SpikedGround sp = new SpikedGround(1000);
-                GameState.addState(State.SPIKE, sp);
-                level1Image = sp.draw();
-                sp.start();
-            }
-            default -> {
-                Blank b = new Blank();
-                GameState.addState(State.BLANK, b);
-                level1Image = b.draw();
-            }
+        } else {
+            Blank b = new Blank();
+            GameState.addState(State.BLANK, b);
+            level1Image = b.draw();
         }
+
+        previousRenderedTile = nextGround;
 
         level1.getChildren().add(level1Image);
         level0.getChildren().add(new Ground().draw());

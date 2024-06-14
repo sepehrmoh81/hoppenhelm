@@ -60,7 +60,7 @@ public class Player implements IDrawable, Runnable {
     }
 
     public void gainHealth(int value) {
-        health += value;
+        health = Math.min(5, health + value);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
