@@ -1,7 +1,8 @@
 module com.smma.hoppenhelm {
     requires javafx.controls;
     requires javafx.fxml;
-                            
+    requires java.sql;
+
     opens com.smma.hoppenhelm to javafx.fxml;
     exports com.smma.hoppenhelm;
     opens com.smma.hoppenhelm.controller to javafx.fxml;

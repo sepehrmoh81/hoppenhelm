@@ -2,11 +2,12 @@ package com.smma.hoppenhelm.controller;
 
 import java.util.Random;
 
+import com.smma.hoppenhelm.DBTools;
+import com.smma.hoppenhelm.model.GameState;
+import com.smma.hoppenhelm.model.GameState.State;
 import com.smma.hoppenhelm.model.drawable.Blank;
 import com.smma.hoppenhelm.model.drawable.Coin;
 import com.smma.hoppenhelm.model.drawable.Enemy;
-import com.smma.hoppenhelm.model.GameState;
-import com.smma.hoppenhelm.model.GameState.State;
 import com.smma.hoppenhelm.model.drawable.Ground;
 import com.smma.hoppenhelm.model.drawable.HealthPotion;
 import com.smma.hoppenhelm.model.drawable.Player;
@@ -43,7 +44,7 @@ public class GameController {
     private Player player;
     private boolean shouldConsume = false;
     private int previousRenderedTile = 0;
-
+    private final DBTools hiScores = new DBTools("hiScore.sqlite");
 
     public void setPlayer(Player player) {
         this.player = player;
@@ -54,6 +55,7 @@ public class GameController {
 
     private void loseGame() {
         isRunning = false;
+        hiScores.createOrUpdateScore(player.getName(), player.getX());
     }
 
     @FXML
