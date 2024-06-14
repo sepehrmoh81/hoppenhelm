@@ -8,4 +8,6 @@ module com.smma.hoppenhelm {
     exports com.smma.hoppenhelm.controller;
     opens com.smma.hoppenhelm.model to javafx.fxml;
     exports com.smma.hoppenhelm.model;
+    exports com.smma.hoppenhelm.model.drawable;
+    opens com.smma.hoppenhelm.model.drawable to javafx.fxml;
 }

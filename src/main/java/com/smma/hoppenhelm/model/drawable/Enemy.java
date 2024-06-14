@@ -1,10 +1,12 @@
-package com.smma.hoppenhelm.model;
+package com.smma.hoppenhelm.model.drawable;
 
+import com.smma.hoppenhelm.model.GameObject;
+import com.smma.hoppenhelm.model.IDrawable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class HealthPotion extends GameObject implements Consumable, IDrawable {
-    private static final String IMAGE_PATH = "potion.png";
+public class Enemy extends GameObject implements IDrawable {
+    private static final String IMAGE_PATH = "goomba.png";
 
     @Override
     public ImageView draw() {

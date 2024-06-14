@@ -1,5 +1,8 @@
 package com.smma.hoppenhelm.model;
 
+import com.smma.hoppenhelm.model.drawable.Blank;
+import com.smma.hoppenhelm.model.drawable.SpikedGround;
+
 public class GameState {
     public enum State {
         BLANK,

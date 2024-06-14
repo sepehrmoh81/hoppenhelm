@@ -1,9 +1,12 @@
-package com.smma.hoppenhelm.model;
+package com.smma.hoppenhelm.model.drawable;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.smma.hoppenhelm.model.GameObject;
+import com.smma.hoppenhelm.model.GameState;
 import com.smma.hoppenhelm.model.GameState.State;
 
+import com.smma.hoppenhelm.model.IDrawable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

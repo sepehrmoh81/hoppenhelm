@@ -1,5 +1,7 @@
-package com.smma.hoppenhelm.model;
+package com.smma.hoppenhelm.model.drawable;
 
+import com.smma.hoppenhelm.model.GameObject;
+import com.smma.hoppenhelm.model.IDrawable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

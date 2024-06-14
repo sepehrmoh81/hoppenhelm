@@ -3,7 +3,7 @@ package com.smma.hoppenhelm.controller;
 import java.io.IOException;
 
 import com.smma.hoppenhelm.App;
-import com.smma.hoppenhelm.model.Player;
+import com.smma.hoppenhelm.model.drawable.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

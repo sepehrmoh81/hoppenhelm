@@ -1,8 +1,11 @@
-package com.smma.hoppenhelm.model;
+package com.smma.hoppenhelm.model.drawable;
 
+import com.smma.hoppenhelm.model.Consumable;
+import com.smma.hoppenhelm.model.GameObject;
+import com.smma.hoppenhelm.model.IDrawable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-public class Coin extends GameObject implements Consumable,IDrawable {
+public class Coin extends GameObject implements Consumable, IDrawable {
     private static final String IMAGE_PATH = "coin.png";
 
     @Override

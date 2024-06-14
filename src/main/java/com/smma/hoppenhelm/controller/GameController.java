@@ -2,16 +2,16 @@ package com.smma.hoppenhelm.controller;
 
 import java.util.Random;
 
-import com.smma.hoppenhelm.model.Blank;
-import com.smma.hoppenhelm.model.Coin;
-import com.smma.hoppenhelm.model.Enemy;
+import com.smma.hoppenhelm.model.drawable.Blank;
+import com.smma.hoppenhelm.model.drawable.Coin;
+import com.smma.hoppenhelm.model.drawable.Enemy;
 import com.smma.hoppenhelm.model.GameState;
 import com.smma.hoppenhelm.model.GameState.State;
-import com.smma.hoppenhelm.model.Ground;
-import com.smma.hoppenhelm.model.HealthPotion;
-import com.smma.hoppenhelm.model.Player;
-import com.smma.hoppenhelm.model.SpikedGround;
-import com.smma.hoppenhelm.model.Torch;
+import com.smma.hoppenhelm.model.drawable.Ground;
+import com.smma.hoppenhelm.model.drawable.HealthPotion;
+import com.smma.hoppenhelm.model.drawable.Player;
+import com.smma.hoppenhelm.model.drawable.SpikedGround;
+import com.smma.hoppenhelm.model.drawable.Torch;
 
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
